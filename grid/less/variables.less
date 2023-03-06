@@ -1,0 +1,89 @@
+// BASE UNITS ========================================================
+
+@basefontsize: 16; /* px */
+@baselineheight: 1.4; /* em */
+
+
+// GRID LAYOUT =======================================================
+
+/* Basic units */
+@gutterwidth: 20px;
+@columnwidth: 55px;
+
+@columnwidthbehaviour: 'flexy'; /* 'flexy' - grow column widths (using %s) as page width increases between breakpoints || 'fixed' - maintain fixed column widths (using px) between breakpoints */
+
+
+// GRID HELPERS ======================================================
+/* No need to edit these */
+
+/* Width variables for fixed-width content blocks, elements etc */
+/* These will be more useful when @columnwidthbehaviour = 'fixed'. With 'flexy' not so much.
+/* Multiples of @columnwidth with @gutterwidth between each column */
+
+@1col: @columnwidth;
+@2cols: ((@1col * 2) + @gutterwidth);
+@3cols: ((@1col * 3) + (@gutterwidth * 2));
+@4cols: ((@1col * 4) + (@gutterwidth * 3));
+@5cols: ((@1col * 5) + (@gutterwidth * 4));
+@6cols: ((@1col * 6) + (@gutterwidth * 5));
+@7cols: ((@1col * 7) + (@gutterwidth * 6));
+@8cols: ((@1col * 8) + (@gutterwidth * 7));
+@9cols: ((@1col * 9) + (@gutterwidth * 8));
+@10cols: ((@1col * 10) + (@gutterwidth * 9));
+@11cols: ((@1col * 11) + (@gutterwidth * 10));
+@12cols: ((@1col * 12) + (@gutterwidth * 11));
+@13cols: ((@1col * 13) + (@gutterwidth * 12));
+@14cols: ((@1col * 14) + (@gutterwidth * 13));
+@15cols: ((@1col * 15) + (@gutterwidth * 14));
+@16cols: ((@1col * 16) + (@gutterwidth * 15));
+
+/* Media breakpoint variables */
+/* As above but includes extra @gutterwidth*2 to account for left and right margins on container element */
+
+@_1col_: (@1col + (@gutterwidth*2));
+@_2cols_: (@2cols + (@gutterwidth*2));
+@_3cols_: (@3cols + (@gutterwidth*2));
+@_4cols_: (@4cols + (@gutterwidth*2));
+@_5cols_: (@5cols + (@gutterwidth*2)); 
+@_6cols_: (@6cols + (@gutterwidth*2)); 
+@_7cols_: (@7cols + (@gutterwidth*2)); 
+@_8cols_: (@8cols + (@gutterwidth*2)); 
+@_9cols_: (@9cols + (@gutterwidth*2)); 
+@_10cols_: (@10cols + (@gutterwidth*2)); 
+@_11cols_: (@11cols + (@gutterwidth*2)); 
+@_12cols_: (@12cols + (@gutterwidth*2)); 
+@_13cols_: (@13cols + (@gutterwidth*2)); 
+@_14cols_: (@14cols + (@gutterwidth*2)); 
+@_15cols_: (@15cols + (@gutterwidth*2)); 
+@_16cols_: (@16cols + (@gutterwidth*2)); 
+
+/* Media query shorthands */
+/* Usage: @media @min9 { ... } */
+
+@min4: ~"only screen and (min-width: @{_4cols_})";
+@min5: ~"only screen and (min-width: @{_5cols_})";
+@min6: ~"only screen and (min-width: @{_6cols_})";
+@min7: ~"only screen and (min-width: @{_7cols_})";
+@min8: ~"only screen and (min-width: @{_8cols_})";
+@min9: ~"only screen and (min-width: @{_9cols_})";
+@min10: ~"only screen and (min-width: @{_10cols_})";
+@min11: ~"only screen and (min-width: @{_11cols_})";
+@min12: ~"only screen and (min-width: @{_12cols_})";
+@min13: ~"only screen and (min-width: @{_13cols_})";
+@min14: ~"only screen and (min-width: @{_14cols_})";
+@min15: ~"only screen and (min-width: @{_15cols_})";
+@min16: ~"only screen and (min-width: @{_16cols_})";
+
+@max4: ~"only screen and (max-width: @{_4cols_})";
+@max5: ~"only screen and (max-width: @{_5cols_})";
+@max6: ~"only screen and (max-width: @{_6cols_})";
+@max7: ~"only screen and (max-width: @{_7cols_})";
+@max8: ~"only screen and (max-width: @{_8cols_})";
+@max9: ~"only screen and (max-width: @{_9cols_})";
+@max10: ~"only screen and (max-width: @{_10cols_})";
+@max11: ~"only screen and (max-width: @{_11cols_})";
+@max12: ~"only screen and (max-width: @{_12cols_})";
+@max13: ~"only screen and (max-width: @{_13cols_})";
+@max14: ~"only screen and (max-width: @{_14cols_})";
+@max15: ~"only screen and (max-width: @{_15cols_})";
+@max16: ~"only screen and (max-width: @{_16cols_})";

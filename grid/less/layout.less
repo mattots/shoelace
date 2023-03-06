@@ -1,0 +1,44 @@
+html {
+    font-size: 62.5%; // set default font size to 10px/1.0rem
+}
+body {
+    .font-size(@basefontsize);
+    font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 20px 0 0 0;
+}
+main, article, aside {
+    display: block;
+}
+
+
+#container {
+    .container();
+    background: lightgray;
+    
+    main {
+        .row();
+        .reverse();
+
+        article {
+            .col-main();
+            background: yellow;
+
+            ul {
+                .row();
+                margin: 0;
+                padding: 0;
+
+                li {
+                    .col-narrow();
+                    background: lightblue;
+                }
+            }
+        }
+
+        aside {
+            .col-aside();
+            background: pink;
+        }
+    }
+}

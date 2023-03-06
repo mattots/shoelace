@@ -1,0 +1,32 @@
+@import 'variables.less';
+@import 'mixins.less';
+
+
+/* Responsive helper */
+/* Adds a message in the bottom right of the screen showing which media breakpoint is currently 'active' */
+body:after {
+    background: red;
+    bottom: 0;
+    color: white;
+    font-weight: bold;
+    left: 0;
+    padding: 1px 4px;
+    position: fixed;
+    z-index: 99999;
+
+    /* Update the following to match grid/breakpoint variables in variables.less... */
+    content: '< _4cols_';
+    @media @min4 { content: '> _4cols_'; }
+    @media @min5 { content: '> _5cols_'; }
+    @media @min6 { content: '> _6cols_'; }
+    @media @min7 { content: '> _7cols_'; }
+    @media @min8 { content: '> _8cols_'; }
+    @media @min9 { content: '> _9cols_'; }
+    @media @min10 { content: '> _10cols_'; }
+    @media @min11 { content: '> _11cols_'; }
+    @media @min12 { content: '> _12cols_'; }
+    @media @min13 { content: '> _13cols_'; }
+    @media @min14 { content: '> _14cols_'; }
+    @media @min15 { content: '> _15cols_'; }
+    @media @min16 { content: '> _16cols_'; }
+}

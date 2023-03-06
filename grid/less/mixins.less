@@ -1,0 +1,128 @@
+// ########################################
+// General mixins used by the grid system
+// ########################################
+
+.block() {
+    display: block;
+}
+.inline-block() {
+    display: inline-block;
+    /* make it work in old IE */
+    *display: inline;
+    *zoom: 1;
+}
+.font-size(@font-size: @basefontsize) {
+    /* rem font size and relative line height, with px fallbacks */
+    @rem: (@font-size / 10);
+    @line-height: @font-size /11;
+    font-size: @font-size * 1px;
+    font-size: ~"@{rem}rem";
+    line-height: @line-height;
+}
+
+
+
+// #################
+// The grid system
+// #################
+
+// Building blocks: ,ciontainer(), .row() and .col()
+// ==================================================
+
+// .container()
+// ------------
+// All content (excluding backgrounds which span the full viewport width) must be wrapped
+// in an element that uses this mixin.
+// It sets a minimum width (@minwidth - default @4cols, as this equates to 320px (taking into account left and right margins) using the default supplied width variables), with fixed left and right margin (effectively padding on the left and right edges of the viewport)
+// up to the point at which the content becomes fixed width (@maxwidth_mbp). The default is @_16cols_ (and as such doesn't need passing to the mixin), but if your grid
+// is only up to @12cols for example, set this accordingly.
+.container(@maxwidth_mbp: @_16cols_, @minwidth: @4cols) {
+    margin: 0 @gutterwidth;
+    min-width: @minwidth;
+    //padding: 0;
+
+    @media only screen and (min-width: @maxwidth_mbp) {
+        margin: 0 auto;
+        width: @maxwidth_mbp - (@gutterwidth*2);
+    }
+}
+
+// .row()
+// ------
+// Wrapper element to contain two or more 'floated' columns/blocks.
+// Don't define a width directly on elements that use this mixin. It always defaults to 100% of it's parent element.
+// If you don't want right margin of @gutterwidth on nested cols, pass the margin you do want as an argument,
+// e.g. .row(10px) - or, for no margin between elements: .row(0)
+// (and be sure to set @gutter on .col() as well in this case)
+.row(@gutter: @gutterwidth) {
+    .block(); /* ensure wrapper element has display:block */
+    .font-size(0); /* remove horizontal space between adjacent inline-block elements - note: this fix doesn't work in Safari for Windows */
+    margin-right: -@gutter !important; /* 'remove' margin of right-most col(s) */
+    margin-left: 0 !important;
+    padding: 0 !important;
+}
+
+// .col()
+// ------
+// 'Floated' column/block.
+// Always pass @width. Only pass @gutter if you don't want a
+// right margin of @gutterwidth (in which case be sure to define @gutter on .row() as well)
+// Don't define horizontal margin or padding styles on elements that use this mixin.
+
+// If @columnwidthbehaviour='flexy', subtract @gutter from @width and convert to percentage.
+// First define fallback percentages for IE<9 no-js...
+.col(100; @gutter: @gutterwidth) when (@columnwidthbehaviour = 'flexy') {
+    width: percentage((100 - @gutter/3) / 100) !important;
+}
+.col(75; @gutter: @gutterwidth) when (@columnwidthbehaviour = 'flexy') {
+    width: percentage((75 - @gutter/12) / 100) !important;
+}
+.col(66.66; @gutter: @gutterwidth) when (@columnwidthbehaviour = 'flexy') {
+    width: percentage((66.66 - @gutter/9) / 100) !important;
+}
+.col(50; @gutter: @gutterwidth) when (@columnwidthbehaviour = 'flexy') {
+    width: percentage((50 - @gutter/6) / 100) !important;
+}
+.col(33.33; @gutter: @gutterwidth) when (@columnwidthbehaviour = 'flexy') {
+    width: percentage((33.33 - @gutter/9) / 100) !important;
+}
+.col(25; @gutter: @gutterwidth) when (@columnwidthbehaviour = 'flexy') {
+    width: percentage((25 - @gutter/12) / 100) !important;
+}
+// Then define the accurately calculated widths for everything else...
+.col(@width: @columnwidth; @gutter: @gutterwidth) when (@columnwidthbehaviour = 'flexy') {
+    width: -webkit-calc(~"@{width}% - @{gutter}") !important;
+    width:    -moz-calc(~"@{width}% - @{gutter}") !important;
+    width:         calc(~"@{width}% - @{gutter}") !important;
+}
+// If @columnwidthbehaviour='fixed', it's much simpler...
+.col(@width: @columnwidth; @gutter: @gutterwidth) when (@columnwidthbehaviour = 'fixed') {
+    width: @width !important;
+}
+// Common arributes regardless of @columnwidthbehaviour...
+.col(@width: @columnwidth; @gutter: @gutterwidth) {
+    .font-size(@basefontsize); /* re-set font-size */
+    .inline-block();
+    margin-right: @gutter !important;
+    margin-left: 0;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    vertical-align: top;
+}
+
+
+
+// Grid system utilities
+// ======================
+
+// Reverse order of cols in a row
+// ------------------------------
+// Useful if you need an element to be before a neighbouring element in source order but be displayed after it. Apply .reverse() to a .row()
+.reverse() {
+    direction: rtl;
+    text-align: left;
+
+    * { // re-set text direction on all nested elements. No need to apply this manually.
+        direction: ltr;
+    }
+}

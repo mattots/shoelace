@@ -1,0 +1,104 @@
+// Scaffolding mixins
+// -------------------
+// Pre-defined, project-spsecific 'floated' column mixins
+
+// This set of scaffolding mixins requires @columnwidthbehaviour to be set to 'flexy',
+//so re-iterate here to be sure it is!
+@columnwidthbehaviour: 'flexy';
+
+
+// Arrange elements inside .row() blocks relative to each other in various combinations of
+// 100%, 75%, 66%, 50%, 33%, 25% widths, depending on what's most appropriate for the page 
+// or containing block width.
+
+// A row of columns can span a full page, or be nested one level deep inside
+// another column (in it's own row). Further levels of nesting beyond this are probably unecessary but
+// if you do need to do that, you'll have to define your own additional nested col mixins below.
+
+// In this scaffolding set, elements never shrink below @4cols width
+// (i.e. 100% at @min4, 50% at @min8, 33.33% at @min12 and 25% at @min16)
+
+// At smallest screen size, every element spans 100% (@4cols).
+// Above this, once the screen is wide enough to accomodate them, elements 'float' next to
+// each other, at either 50/50, 33.33/66.66, or 25/75 % relative widths depending on how
+// wide the screen is (how much space is available), and the relative 'importance' of the
+// elements (wide, equal, narrow).
+
+// Note on nesting floated col-widthss:
+// If using a nested col mixin, ensure the parent col mixin is defined in the same LESS code block in the same file to 'unlock' the nested mixin.
+
+
+// -------------------
+// Helper mixin to avoid needless repetition when defining scaffolding mixins below
+// Don't edit.
+// For each scaffolding mixin, simply call this mixin with the relevant values defined:
+// - % widths for min8, min12 and min16 col breakpoints (below 8cols everything is always 100%)
+// - gutter width
+.col-widths(@min8width; @min12width; @min16width; @gutter) {
+    .col(100; @gutter);
+    @media @min8 { .col(@min8width; @gutter); }
+    @media @min12 { .col(@min12width; @gutter); }
+    @media @min16 { .col(@min16width; @gutter); }
+}
+// -------------------
+
+
+
+// THE SCAFFOLDING MIXINS THEMELVES
+// These are the ones to reference in your own LESS files, and which you can (if needs be) edit
+// =============================================================================================
+
+// main content block
+.col-main(@gutter: @gutterwidth) {
+    .col-widths(100; 66.66; 75; @gutter);
+
+    .col-narrow(@gutter: @gutterwidth) {
+        .col-widths(50; 50; 33.33; @gutter);
+    }
+
+    .col-equal(@gutter: @gutterwidth) {
+        .col-widths(50; 50; 50; @gutter);
+    }
+
+    .col-wide(@gutter: @gutterwidth) {
+        .col-widths(50; 50; 66.66; @gutter);
+
+        .col-narrow(@gutter: @gutterwidth) { 
+            .col-widths(100; 100; 50; @gutter);
+        }
+    }
+}
+
+// sidebar
+.col-aside(@gutter: @gutterwidth) {
+    .col-widths(100; 33.33; 25; @gutter);
+}
+
+// generic
+.col-narrow(@gutter: @gutterwidth) {
+    .col-widths(50; 33.33; 25; @gutter);
+}
+
+.col-equal(@gutter: @gutterwidth) {
+    .col-widths(50; 50; 50; @gutter);
+}
+
+.col-wide(@gutter: @gutterwidth) {
+    .col-widths(50; 66.66; 75; @gutter);
+
+    .col-narrow(@gutter: @gutterwidth) {
+        .col-widths(50; 50; 33.33; @gutter);
+    }
+
+    .col-equal(@gutter: @gutterwidth) {
+        .col-widths(50; 50; 50; @gutter);
+    }
+
+    .col-wide(@gutter: @gutterwidth) {
+        .col-widths(50; 50; 66.66);
+
+        .col-narrow(@gutter: @gutterwidth) { 
+            .col-widths(100; 100; 50; @gutter);
+        }
+    }
+}
